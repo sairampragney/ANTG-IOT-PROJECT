@@ -66,3 +66,4 @@ footer { border-top: 1px solid var(--border); padding: 20px 0 28px; display: fle
 .chart-wrap { overflow: hidden; }
 footer { gap: 20px; }
 @keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 800px) { footer span { display: block; } footer span + span { margin-top: 8px; } }
