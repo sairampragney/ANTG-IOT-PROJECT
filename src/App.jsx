@@ -5,7 +5,7 @@ import { projectData } from './data/projectData'
 import './App.css'
 
 const navItems = [
-  ['Dashboard', '/dashboard'], ['ML Comparison', '/ml-comparison'], ['History', '/history'],
+  ['Home', '/'], ['Dashboard', '/dashboard'], ['ML Comparison', '/ml-comparison'], ['History', '/history'],
   ['Hardware', '/hardware'], ['About', '/about'],
 ]
 
@@ -17,6 +17,13 @@ function GlassCard({ children, className = '' }) { return <article className={`g
 function Navbar() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [location.pathname])
   return <><a className="skip-link" href="#main-content">Skip to main content</a><header className="navbar"><Link className="brand" to="/" onClick={() => setOpen(false)}><span className="brand-mark">SC</span><span>SmartClass<span> / IoT Lab</span></span></Link><button className="menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="primary-navigation" aria-label="Toggle navigation">{open ? '×' : '☰'}</button><nav id="primary-navigation" className={open ? 'nav-links open' : 'nav-links'} aria-label="Primary navigation">{navItems.map(([label, path]) => <NavLink key={path} to={path} className={location.pathname === path ? 'active' : ''} onClick={() => setOpen(false)}>{label}</NavLink>)}</nav></header></>
 }
 
